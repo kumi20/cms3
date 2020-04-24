@@ -1,0 +1,108 @@
+<form [formGroup]="pollForm">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="pollName">Nazwa</label>
+      <dx-text-box
+        formControlName="pollName"
+        [ngClass]="{ 'in-valid': submitted && formError.pollName }"
+      ></dx-text-box>
+      <small class="text-danger" *ngIf="submitted && formError.pollName">
+        <p>{{ formError.pollName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="pollStartDate">Data publikacji</label>
+      <dx-date-box
+        displayFormat="yyyy-MM-dd"
+        type="date"
+        (onClosed)="onValueChanged()"
+        formControlName="pollStartDate"
+        [ngClass]="{ 'in-valid': submitted && formError.pollStartDate }"
+      ></dx-date-box>
+      <small class="text-danger" *ngIf="submitted && formError.pollStartDate">
+        <p>{{ formError.pollStartDate }}</p>
+      </small>
+    </div>
+
+    <div class="col-md-6">
+      <label for="pollEndDate">Data wygaśnięcia</label>
+      <dx-date-box
+        displayFormat="yyyy-MM-dd"
+        type="date"
+        (onClosed)="onValueChanged()"
+        formControlName="pollEndDate"
+        [ngClass]="{ 'in-valid': submitted && formError.pollEndDate }"
+      ></dx-date-box>
+      <small class="text-danger" *ngIf="submitted && formError.pollEndDate">
+        <p>{{ formError.pollEndDate }}</p>
+      </small>
+    </div>
+  </div>
+
+  <ng-container>
+    <div class="row">
+      <div class="col-md-12 ">
+        <h4 class="d-inline" style="margin-right: 10px;">Odpowiedzi</h4>
+        <dx-button
+          style="margin-top:10px"
+          icon="fa fa-plus"
+          stylingMode="text"
+          type="default"
+          hint="Dodaj nową odpowiedź"
+          (onClick)="onAddingVote()"
+        >
+        </dx-button>
+      </div>
+    </div>
+
+    <div class="row">
+      <table class="table">
+        <thead>
+          <th>#</th>
+          <th>Nazwa</th>
+          <th></th>
+          <th></th>
+        </thead>
+        <tbody
+          formArrayName="pollVoteList"
+          *ngFor="
+            let item of pollForm.get('pollVoteList').controls;
+            let i = index
+          "
+        >
+          <tr [formGroupName]="i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <dx-text-box formControlName="pool_vote_name"></dx-text-box>
+            </td>
+            <td>{{ item.get("pool_procent").value | percent }}</td>
+            <td>
+              <dx-button
+                icon="fa fa-trash btn-trash"
+                type="danger"
+                (onClick)="onDeleteVote(i)"
+              >
+              </dx-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="200"
+        (onClick)="onSubmitedForm(pollForm.value)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>

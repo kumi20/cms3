@@ -1,0 +1,134 @@
+<div class="row" *ngIf="idParent == 0">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+    <dx-button
+      type="default"
+      text="Dodaj stronę"
+      [width]="200"
+      (onClick)="popupVisible = true"
+    >
+    </dx-button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <ul [dragula]="'komp'" [dragulaModel]="menuList">
+      <li *ngFor="let menu of menuList; let i = index">
+        <div draggable="true">
+          <div class="row">
+            <div class="col-sm-12 showMenu">
+              <a
+                [routerLink]="[
+                  '/content/',
+                  { outlets: { 'panel-outlet': ['page', menu.page_id] } }
+                ]"
+                >{{ menu.page_name }}</a
+              >
+              <div class="hidenMenu">
+                <i
+                  class="fa fa-trash"
+                  aria-hidden="true"
+                  style="color:red; cursor:pointer"
+                  mdbRippleRadius
+                  title="Usuń stronę"
+                  placement="bottom"
+                  (click)="onDeletePage(menu.page_id)"
+                ></i>
+                <i
+                  *ngIf="menu.page_id != 1 && i != 0"
+                  class="fa fa-caret-right"
+                  aria-hidden="true"
+                  style="cursor: pointer;"
+                  mdbRippleRadius
+                  title="Przesuń poziom niżej"
+                  placement="bottom"
+                  (click)="onLevelDown(i, menu.page_id)"
+                ></i>
+                <i
+                  *ngIf="menu.parent_id != 0"
+                  class="fa fa-caret-left"
+                  aria-hidden="true"
+                  style="cursor: pointer;"
+                  mdbRippleRadius
+                  title="Przesuń poziom wyżej"
+                  placement="bottom"
+                  (click)="onLevelUp(menu.page_id)"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <app-menu-page [idParent]="menu.page_id"></app-menu-page>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<dx-popup
+  width="100vw"
+  height="50%"
+  [showTitle]="true"
+  title="Dodaj stronę"
+  position="bottom"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  (onHiding)="closeModal()"
+  [(visible)]="popupVisible"
+  [animation]="{
+    show: { type: 'slideIn', direction: 'bottom' },
+    hide: { type: 'slideOut', direction: 'bottom' }
+  }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view
+      #scrollView
+      id="scrollview"
+      scrollByContent="true"
+      scrollByThumb="true"
+      [showScrollbar]="scrollbarMode"
+      bounceEnabled="false"
+      reachBottomText="Updating..."
+    >
+      <form [formGroup]="pageForm">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="pageName">Nazwa</label>
+            <dx-text-box
+              [ngClass]="{
+                'in-valid': submitted && formError.pageName
+              }"
+              name="pageName"
+              id="pageName"
+              formControlName="pageName"
+            >
+            </dx-text-box>
+            <small
+              class="text-danger"
+              *ngIf="submitted && formError.pageName"
+            >
+              <p>{{ formError.pageName }}</p>
+            </small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <dx-button
+              icon="fa fa-floppy-o"
+              type="default"
+              text="Zapisz"
+              [width]="200"
+              (onClick)="onSendForm(pageForm)"
+            >
+            </dx-button>
+          </div>
+        </div>
+      </form>
+    </dx-scroll-view>
+  </div>
+</dx-popup>

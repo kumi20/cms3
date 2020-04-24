@@ -1,0 +1,66 @@
+<form [formGroup]="menuForm">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="menuName">Nazwa</label>
+      <dx-text-box
+        formControlName="menuName"
+        [ngClass]="{ 'in-valid': submitted && menuError.menuName }"
+      ></dx-text-box>
+      <small class="text-danger" *ngIf="submitted && menuError.menuName">
+        <p>{{ menuError.menuName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-12">
+        <label for="menuHtmlClass">Klasa CSS</label>
+        <dx-select-box
+          [ngClass]="{ 'in-valid': submitted && menuError.menuHtmlClass }"
+          [items]="menuCssList"
+          displayExpr="label"
+          valueExpr="value"
+          placeholder="-- wybierz css --"
+          formControlName="menuHtmlClass"
+          name="menuHtmlClass"
+          id="menuHtmlClass"
+        ></dx-select-box>
+        <small class="text-danger" *ngIf="submitted && menuError.menuHtmlClass">
+          <p>{{ menuError.menuHtmlClass }}</p>
+        </small>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-list
+        #dxList
+        [dataSource]="menuPageList"
+        selectionMode="all"
+        selectAllMode="page"
+        [showSelectionControls]="true"
+        [selectedItemKeys]="selectedItemKeys"
+      >
+        <div *dxTemplate="let item of 'item'; let i = index">
+          <div class="row">
+            <div class="col-md-3 col-sm-3 col-3">
+              {{ item.page_name }}
+            </div>
+          </div>
+        </div>
+      </dx-list>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+        <dx-button  
+            icon="fa fa-floppy-o"
+            type="default"
+            text="Zapisz"
+            [width]="200"
+            (onClick)="onSubmitedForm(menuForm)">
+        </dx-button>
+    </div>
+</div>
+</form>

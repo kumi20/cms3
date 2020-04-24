@@ -1,0 +1,105 @@
+<form [formGroup]="userForm">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="titleNews">Login</label>
+      <dx-text-box
+        [ngClass]="{ 'in-valid': submitted && userError.userLogin }"
+        name="userLogin"
+        id="userLogin"
+        formControlName="userLogin"
+      ></dx-text-box>
+      <small class="text-danger" *ngIf="submitted && userError.userLogin">
+        <p>{{ userError.userLogin }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="userPsw">Hasło</label>
+      <dx-text-box
+        mode="password"
+        [ngClass]="{ 'in-valid': submitted && userError.userPsw }"
+        id="userPsw"
+        formControlName="userPsw"
+      >
+      </dx-text-box>
+      <small class="text-danger" *ngIf="submitted && userError.userPsw">
+        <p>{{ userError.userPsw }}</p>
+      </small>
+    </div>
+    <div class="col-md-6">
+      <label for="userPswRepeat">Powtórz hasło</label>
+      <dx-text-box
+        mode="password"
+        [ngClass]="{ 'in-valid': submitted && userError.userPswRepeat }"
+        id="userPswRepeat"
+        formControlName="userPswRepeat"
+      >
+      </dx-text-box>
+      <small class="text-danger" *ngIf="submitted && userError.userPswRepeat">
+        <p>{{ userError.userPswRepeat }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label for="userName">Nazwisko i imię</label>
+      <dx-text-box
+        [ngClass]="{ 'in-valid': submitted && userError.userName }"
+        id="userName"
+        formControlName="userName"
+      >
+      </dx-text-box>
+      <small class="text-danger" *ngIf="submitted && userError.userName">
+        <p>{{ userError.userName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="userEmail">Email</label>
+      <dx-text-box
+        mode="email"
+        [ngClass]="{ 'in-valid': submitted && userError.userEmail }"
+        id="userEmail"
+        formControlName="userEmail"
+      >
+      </dx-text-box>
+      <small class="text-danger" *ngIf="submitted && userError.userEmail">
+        <p>{{ userError.userEmail }}</p>
+      </small>
+    </div>
+    <div class="col-md-6">
+      <label for="userStatus">Status</label>
+      <dx-select-box
+        [ngClass]="{ 'in-valid': submitted && userError.userStatus }"
+        [items]="statusList"
+        displayExpr="label"
+        valueExpr="value"
+        placeholder="-- wybierz status --"
+        formControlName="userStatus"
+        name="userStatus"
+        id="userStatus"
+      ></dx-select-box>
+      <small class="text-danger" *ngIf="submitted && userError.userStatus">
+        <p>{{ userError.userStatus }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="200"
+        (onClick)="onSubmitUser(userForm)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>

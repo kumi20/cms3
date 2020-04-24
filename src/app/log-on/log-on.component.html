@@ -1,0 +1,42 @@
+<section id="login">
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Zaloguj</h3>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="loginForm" (submit)="onLogIn(loginForm)">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input type="text" formControlName="user" id="user" class="form-control" [ngClass]="(submited && formErrors.user)?'form-control in-valid' : 'form-control'">
+                        </div>
+                        <small *ngIf="submited && formErrors.user">
+                            <p class="text-danger">{{formErrors.user}}</p>
+                        </small>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            </div>
+                            <input type="password" formControlName="psw" id="psw" class="form-control" [ngClass]="(submited && formErrors.psw)?'form-control in-valid' : 'form-control'"><br>
+                        </div>
+                        <small *ngIf="submited && formErrors.psw">
+                            <p class="text-danger">{{formErrors.psw}}</p>
+                        </small>
+                        <div class="form-group">
+                            <input type="submit" value="zaloguj" class="btn float-right login_btn">
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="alert alert-danger" *ngIf="errorLogin.length > 0">
+                    <strong>Błąd!</strong> {{errorLogin}}.
+                </div>
+
+            </div>
+        </div>
+    </div> 
+</section>
+

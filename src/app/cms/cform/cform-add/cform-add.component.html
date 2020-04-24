@@ -1,0 +1,96 @@
+<form [formGroup]="cForm">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="cformName">Nazwa</label>
+      <dx-text-box
+        formControlName="cformName"
+        [ngClass]="{ 'in-valid': submitted && cformError.cformName }"
+      ></dx-text-box>
+      <small class="text-danger" *ngIf="submitted && cformError.cformName">
+        <p>{{ cformError.cformName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <ng-container>
+    <div class="row">
+      <div class="col-md-12 ">
+        <h4 class="d-inline" style="margin-right: 10px;">Adresaci</h4>
+        <dx-button
+          style="margin-top:10px"
+          icon="fa fa-plus"
+          stylingMode="text"
+          type="default"
+          hint="Dodaj nową grupę"
+          (onClick)="popupVisible = true"
+        >
+        </dx-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <dx-data-grid
+          #grid
+          id="gridContainer"
+          [allowColumnReordering]="true"
+          [dataSource]="userCformList"
+          keyExpr="cform_user_id"
+          [selectedRowKeys]="selectedItemsKey"
+          (onRowRemoving)="onDelete($event.key)"
+          (onRowUpdating)="onUpdateUserForm($event)"
+        >
+          <dxo-editing
+            mode="row"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+            [allowAdding]="false"
+            [useIcons]="true"
+          >
+          </dxo-editing>
+          <dxo-selection
+            selectAllMode="allPages"
+            showCheckBoxesMode="onClick"
+            mode="multiple"
+          ></dxo-selection>
+          <dxi-column
+            dataField="cform_user_name"
+            caption="Imię i nazwisko"
+          ></dxi-column>
+          <dxi-column dataField="cform_user_email" caption="Email"></dxi-column>
+          <dxi-column
+            dataField="cform_user_title"
+            caption="Stanowisko"
+          ></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="200"
+        (onClick)="onSubmitedForm(cForm.value)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>
+
+<dx-popup
+  [width]="350"
+  [height]="450"
+  [showTitle]="true"
+  title="Dodaj adresata"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  [(visible)]="popupVisible"
+  (onHiding)="closeModal()"
+>
+  <div *dxTemplate="let data of 'content'">
+    <app-user-cform-add></app-user-cform-add>
+  </div>
+</dx-popup>

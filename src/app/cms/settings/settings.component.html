@@ -1,0 +1,65 @@
+<form [formGroup]="settingsForm">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="pageTitlePrefix">Przedrostek tytułu strony</label>
+      <dx-text-box
+        name="pageTitlePrefix"
+        id="pageTitlePrefix"
+        formControlName="pageTitlePrefix"
+      ></dx-text-box>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <label for="sender">Nadawca od którego użytkownicy dostają maile</label>
+      <dx-text-box
+        name="sender"
+        id="sender"
+        formControlName="sender"
+      ></dx-text-box>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <label for="analytics">Kody Google Analytics</label>
+      <dx-text-box
+        name="analytics"
+        id="analytics"
+        formControlName="analytics"
+      ></dx-text-box>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <label for="description">Meta-Opis Strony</label>
+      <dx-text-box
+        name="description"
+        id="description"
+        formControlName="description"
+      ></dx-text-box>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <label for="keywords">Meta-Słowa Kluczowe</label>
+      <dx-text-box
+        name="keywords"
+        id="keywords"
+        formControlName="keywords"
+      ></dx-text-box>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="200"
+        (onClick)="onSendSettingForm(settingsForm)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>

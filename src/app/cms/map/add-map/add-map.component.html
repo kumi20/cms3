@@ -1,0 +1,153 @@
+<form [formGroup]="mapForm">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="mapName">Tytuł</label>
+      <dx-text-box
+        formControlName="mapName"
+        [ngClass]="{ 'in-valid': submitted && formError.mapName }"
+      ></dx-text-box>
+      <small class="text-danger" *ngIf="submitted && formError.mapName">
+        <p>{{ formError.mapName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label for="mapContent">Opis</label>
+      <editor
+        formControlName="mapContent"
+        [init]="initTinyMce"
+        [ngClass]="{ 'in-valid': submitted && formError.mapContent }"
+      ></editor>
+      <small class="text-danger" *ngIf="submitted && formError.mapContent">
+        <p>{{ formError.mapContent }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="mapSzer">Lat</label>
+      <dx-text-box
+        name="mapSzer"
+        id="mapSzer"
+        formControlName="mapSzer"
+        disabled
+      ></dx-text-box>
+    </div>
+    <div class="col-md-6">
+      <label for="mapDlug">Lng</label>
+      <dx-text-box
+        name="mapDlug"
+        mdbActive
+        id="mapDlug"
+        formControlName="mapDlug"
+        disabled
+      ></dx-text-box>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <agm-map
+        #mapa
+        [latitude]="lat"
+        [longitude]="lng"
+        [zoom]="zoom"
+        [disableDefaultUI]="false"
+        [zoomControl]="false"
+        (mapClick)="mapClicked($event)"
+        style="height: 500px"
+      >
+        <agm-marker
+          *ngFor="let m of markerList; let i = index"
+          (markerClick)="clickedMarker(i, m.lat, m.lng, m.description)"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [label]="m.label"
+          [markerDraggable]="m.draggable"
+          (dragEnd)="markerDragEnd(m, $event)"
+        >
+          <agm-info-window>
+            <div [innerHTML]="markerList[0].description"></div>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+
+  <ng-container>
+    <div class="row">
+      <div class="col-md-12 ">
+        <h4 class="d-inline" style="margin-right: 10px;">Grupa</h4>
+        <dx-button
+          style="margin-top:10px"
+          icon="fa fa-plus"
+          stylingMode="text"
+          type="default"
+          hint="Dodaj nową grupę"
+          (onClick)="popupVisible = true"
+        >
+        </dx-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <dx-list
+          #dxList
+          [dataSource]="mapGroupList"
+          selectionMode="all"
+          selectAllMode="page"
+          [showSelectionControls]="true"
+          [selectedItemKeys]="selectedItemKeys"
+        >
+          <div *dxTemplate="let item of 'item'; let i = index">
+            <div class="row">
+              <div class="col-md-3 col-sm-3 col-3">
+                {{ item.map_group_name }}
+              </div>
+              <div class="col-md-1 col-sm-1 col-1">
+                <i
+                  class="fa fa-trash btn-trash"
+                  aria-hidden="true"
+                  title="Usuń grupę"
+                  (click)="onDeleteGroup(item.map_group_id)"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </dx-list>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="200"
+        (onClick)="onSubmitedForm(mapForm.value)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>
+
+
+<dx-popup
+  [width]="350"
+  [height]="250"
+  [showTitle]="true"
+  title="Dodaj grupę"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  [(visible)]="popupVisible"
+  (onHiding)="closeModal()"
+>
+  <div *dxTemplate="let data of 'content'">
+    <app-group-map-add></app-group-map-add>
+  </div>
+</dx-popup>

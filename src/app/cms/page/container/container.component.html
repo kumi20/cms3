@@ -1,0 +1,111 @@
+<div class="card" style="cursor: pointer">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-10">{{ nameContainer }} - {{ idContainer }}</div>
+      <div class="col-md-2 text-right">
+        <i
+          class="fa fa-plus-square"
+          aria-hidden="true"
+          title="dodaj element"
+          placement="top"
+          style="margin-right:10px;"
+          (click)="popupVisible = true"
+        ></i>
+        <i
+          class="fa fa-trash-o"
+          aria-hidden="true"
+          style="cursor:pointer; color:red"
+          title="usuń kontener"
+          placement="top"
+          (click)="onDeleteContainer(idContainer)"
+        ></i>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <app-wraper-component
+      [idKontenera]="idContainer"
+      [idPage]="idPage"
+    ></app-wraper-component>
+  </div>
+</div>
+
+<dx-popup
+  width="100vw"
+  height="70%"
+  [showTitle]="true"
+  title="Nowy element"
+  position="bottom"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  (onHiding)="closeModal()"
+  [(visible)]="popupVisible"
+  [animation]="{
+    show: { type: 'slideIn', direction: 'bottom' },
+    hide: { type: 'slideOut', direction: 'bottom' }
+  }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view
+      #scrollView
+      id="scrollview"
+      scrollByContent="true"
+      scrollByThumb="true"
+      [showScrollbar]="scrollbarMode"
+      bounceEnabled="false"
+      reachBottomText="Updating..."
+    >
+      <form [formGroup]="formElement">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="moduleId">Moduł</label>
+            <dx-select-box
+              [items]="moduleList"
+              displayExpr="label"
+              valueExpr="value"
+              formControlName="moduleId"
+              (onSelectionChanged)="onSelectedModule($event); onSelectedView($event)"
+            ></dx-select-box>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="moduleViewId">Widok</label>
+            <dx-select-box
+              [items]="modelVliewList"
+              displayExpr="label"
+              valueExpr="value"
+              formControlName="moduleViewId"
+            ></dx-select-box>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="pageElementElemid">Element</label>
+            <dx-select-box
+              [items]="elementList"
+              displayExpr="label"
+              valueExpr="value"
+              formControlName="pageElementElemid"
+            ></dx-select-box>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <dx-button
+              icon="fa fa-floppy-o"
+              type="default"
+              text="Zapisz"
+              [width]="200"
+              (onClick)="onSendElementForm(formElement)"
+            >
+            </dx-button>
+          </div>
+        </div>
+      </form>
+    </dx-scroll-view>
+  </div>
+</dx-popup>

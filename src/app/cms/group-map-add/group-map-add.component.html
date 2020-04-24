@@ -1,0 +1,24 @@
+<form [formGroup]="groupMapForm">
+    <div class="row">
+        <div class="col-md-12">
+            <label for="newsGroupName">Nazwa grupy</label>
+            <dx-text-box formControlName="mapGroupName" [ngClass]="{'in-valid' : (submitted && formError.mapGroupName)}"></dx-text-box>
+            <small class="text-danger" *ngIf="submitted && formError.mapGroupName">
+                <p>{{ formError.mapGroupName}}</p>
+            </small>  
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <dx-button
+                icon="fa fa-floppy-o"
+                type="default"
+                text="Zapisz"
+                [width]="120"
+                (onClick)="onSubmitedForm(groupMapForm.value)"
+            >
+            </dx-button>
+        </div>
+    </div>
+</form>

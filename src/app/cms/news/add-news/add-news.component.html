@@ -1,0 +1,148 @@
+<form [formGroup]="newsForm">
+  <ng-container>
+    <div class="row">
+      <div class="col-md-12">
+        <label for="title">Tytuł</label>
+        <dx-text-box
+          id="title"
+          formControlName="title"
+          [ngClass]="{ 'in-valid': submitted && formError.title }"
+        ></dx-text-box>
+        <small class="text-danger" *ngIf="submitted && formError.title">
+          <p>{{ formError.title }}</p>
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <dx-check-box
+          formControlName="publication"
+          text="Publikuj"
+        ></dx-check-box>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label for="dataPublication">Data publikacji</label>
+        <dx-date-box
+          displayFormat="yyyy-MM-dd"
+          type="date"
+          (onClosed)="onValueChanged()"
+          formControlName="dataPublication"
+          [ngClass]="{ 'in-valid': submitted && formError.dataPublication }"
+        ></dx-date-box>
+        <small
+          class="text-danger"
+          *ngIf="submitted && formError.dataPublication"
+        >
+          <p>{{ formError.dataPublication }}</p>
+        </small>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <label for="lead">Lead</label>
+        <editor formControlName="lead" [init]="initTinyMce"></editor>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <label for="text">Treść</label>
+        <editor
+          formControlName="text"
+          [init]="initTinyMce"
+          [ngClass]="{ 'in-valid': submitted && formError.text }"
+        ></editor>
+        <small class="text-danger" *ngIf="submitted && formError.text">
+          <p>{{ formError.text }}</p>
+        </small>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <app-add-gallery
+          (sendIdGallery)="setIdGalleryNews($event)"
+          newsGallery="true"
+          [idNewsGallery]="newsForm.get('galery').value"
+        ></app-add-gallery>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container>
+    <div class="row">
+      <div class="col-md-12 ">
+        <h4 class="d-inline" style="margin-right: 10px;">Grupa</h4>
+        <dx-button
+          style="margin-top:10px"
+          icon="fa fa-plus"
+          stylingMode="text"
+          type="default"
+          hint="Dodaj nową grupę"
+          (onClick)="popupVisible = true"
+        >
+        </dx-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <dx-list
+          #dxList
+          [dataSource]="newsGroupList"
+          selectionMode="all"
+          selectAllMode="page"
+          [showSelectionControls]="true"
+          [selectedItemKeys]="selectedItemKeys"
+          (onSelectionChanged)="onSelectionChanged($event)"
+        >
+          <div *dxTemplate="let item of 'item'; let i = index">
+            <div class="row">
+              <div class="col-md-3 col-sm-3 col-3">
+                {{ item.newsGroupName }}
+              </div>
+              <div class="col-md-1 col-sm-1 col-1">
+                <i
+                  class="fa fa-trash btn-trash"
+                  aria-hidden="true"
+                  title="Usuń grupę"
+                  (click)="onDeleteGroup(item.newsGroupId)"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </dx-list>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="200"
+        (onClick)="onSubmitedForm(newsForm.value)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>
+
+<dx-popup
+  [width]="350"
+  [height]="350"
+  [showTitle]="true"
+  title="Dodaj grupę"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  [(visible)]="popupVisible"
+  (onHiding)="closeModal()"
+>
+  <div *dxTemplate="let data of 'content'">
+    <app-group-news-add></app-group-news-add>
+  </div>
+</dx-popup>

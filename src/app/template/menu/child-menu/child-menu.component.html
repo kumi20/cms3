@@ -1,0 +1,8 @@
+<ul  style="margin-left:-20px;">
+    <li *ngFor="let i of submenu; let in = index">
+        
+        <a routerLink="/{{i.page_id}}/{{i.menu_node_name_url}}">{{i.menu_node_name}}</a>
+
+        <app-sub-pages [parent]="i.page_id" [level]="in+2" [idtresci]="idtresci"></app-sub-pages> 
+    </li>
+</ul>

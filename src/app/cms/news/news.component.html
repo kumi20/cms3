@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <dx-button
+            type="default"
+            text="Dodaj nowy artykuł"
+            [width]="200"
+            [routerLink]="['/content/',{outlets: { 'panel-outlet': ['news-add'] } }]"
+            >
+        </dx-button>
+
+        <dx-data-grid
+            #grid
+            id="newsList"
+            [dataSource]="newsList"
+            keyExpr="news_id"
+            [allowColumnReordering]="false"
+            [allowColumnResizing]="true"
+            [columnAutoWidth]="true"
+            [selectedRowKeys]="[]"
+            (onRowRemoving)="onDelete($event.key)"
+            (onSelectionChanged)="onSelectionChange($event.selectedRowKeys)"
+            >
+            <dxo-selection mode="single"></dxo-selection>
+
+            <dxo-editing
+                mode="row"
+                [allowUpdating]="false"
+                [allowDeleting]="true"
+                [allowAdding]="false"
+                [useIcons]="true"
+                >
+            </dxo-editing>
+            <dxi-column 
+                dataField="news_name" 
+                caption="Tytuł">
+            </dxi-column>  
+            <dxi-column 
+                [width]="150"
+                dataField="news_views" 
+                caption="Liczba wyświetleń">
+            </dxi-column>  
+            <dxi-column 
+                [width]="150"
+                dataField="news_status_name" 
+                caption="Status">
+            </dxi-column>  
+            <dxi-column 
+                [width]="120"
+                dataField="news_pub_date" 
+                caption="Data publikacji">
+            </dxi-column>      
+        </dx-data-grid>
+    </div>
+</div>

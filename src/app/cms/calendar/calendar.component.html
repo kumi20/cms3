@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-lg-12 ">
+    <full-calendar
+      (eventClick)="handleDateClick($event)"
+      (dateClick)="dateClick($event)"
+      [events]="calendarEvents"
+      defaultView="dayGridMonth"
+      [plugins]="calendarPlugins.plugins"
+      [locales]="locales"
+      [header]="calendarPlugins.header"
+      locale="pl"
+    ></full-calendar>
+  </div>
+</div>
+
+<dx-popup
+  width="100vw"
+  height="80%"
+  [showTitle]="true"
+  title="Wydarzenie"
+  position="bottom"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  (onHiding)="closeModal()"
+  [(visible)]="popupVisible"
+  [animation]="{
+    show: { type: 'slideIn', direction: 'bottom' },
+    hide: { type: 'slideOut', direction: 'bottom' }
+  }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view
+      #scrollView
+      id="scrollview"
+      scrollByContent="true"
+      scrollByThumb="true"
+      [showScrollbar]="scrollbarMode"
+      bounceEnabled="false"
+      reachBottomText="Updating..."
+    >
+      <form [formGroup]="formEvent">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="eventStart">Data startu</label>
+            <dx-date-box
+              displayFormat="yyyy-MM-dd"
+              type="date"
+              (onClosed)="onValueChanged()"
+              formControlName="eventStart"
+              [ngClass]="{ 'in-valid': submitted && formError.eventStart }"
+            ></dx-date-box>
+
+            <small
+              class="text-danger"
+              *ngIf="submitted && formError.eventStart"
+            >
+              <p>{{ formError.eventStart }}</p>
+            </small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="eventEnd">Data końca</label>
+            <dx-date-box
+              displayFormat="yyyy-MM-dd"
+              type="date"
+              (onClosed)="onValueChanged()"
+              formControlName="eventEnd"
+              [ngClass]="{ 'in-valid': submitted && formError.eventEnd }"
+            ></dx-date-box>
+
+            <small class="text-danger" *ngIf="submitted && formError.eventEnd">
+              <p>{{ formError.eventEnd }}</p>
+            </small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="eventTitle">Nazwa</label>
+            <dx-text-area
+              [height]="90"
+              [ngClass]="{ 'in-valid': submitted && formError.eventTitle }"
+              name="eventTitle"
+              mdbActive
+              id="eventTitle"
+              formControlName="eventTitle"
+            >
+            </dx-text-area>
+            <small
+              class="text-danger"
+              *ngIf="submitted && formError.eventTitle"
+            >
+              <p>{{ formError.eventTitle }}</p>
+            </small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <dx-button
+              icon="fa fa-floppy-o"
+              type="default"
+              text="Zapisz"
+              [width]="200"
+              (onClick)="onSubmitedEventForm(formEvent)"
+            >
+            </dx-button>
+
+            <dx-button
+              *ngIf="
+                formEvent.get('eventId').value != 0 &&
+                formEvent.get('eventId').value != null
+              "
+              icon="fa fa-trash"
+              type="danger"
+              text="Usuń"
+              [width]="200"
+              style="margin-left:10px;"
+              (onClick)="onDeleteEvent()"
+            >
+            </dx-button>
+          </div>
+        </div>
+      </form>
+    </dx-scroll-view>
+  </div>
+</dx-popup>

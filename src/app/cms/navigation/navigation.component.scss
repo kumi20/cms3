@@ -1,0 +1,80 @@
+::ng-deep app-navigation .dx-toolbar {
+    background-color: #111111;
+    padding: 5px 10px;
+}
+
+::ng-deep .dx-list-item-icon-container, ::ng-deep .dx-toolbar-before {
+    width: 36px;
+    padding-right: 0px !important;
+    text-align: center;
+}
+ 
+::ng-deep app-navigation .dx-button-mode-contained.dx-state-hover{
+    background-color: #111111;
+    color: #ffffff;
+}
+
+::ng-deep app-navigation .dx-button-mode-contained.dx-state-focused{
+    background-color: #111111;
+    border: none;
+}
+
+::ng-deep .dx-list-item-content {
+    padding-left: 10px !important;
+}
+
+::ng-deep .dx-button {
+    background-color: rgba(191, 191, 191, -0.15);
+    border: none;
+}
+
+::ng-deep .dx-icon.dx-icon-menu{
+    color:#ffffff
+}
+
+::ng-deep .panel-list {
+    background-color:#404040!important;
+    height: calc(100vh - 45px);
+}
+
+::ng-deep .dx-drawer-expand.dx-drawer-right .panel-list {
+    float: right;
+}
+
+::ng-deep .panel-list .dx-list-item {
+    color: #ffffff;
+    border-top: 1px solid #404040;
+}
+
+::ng-deep .panel-list .dx-list-item .dx-icon {
+    color: #ffffff !important;
+}
+
+::ng-deep .options {
+    padding: 20px;
+    background-color: rgba(191, 191, 191, .15);
+}
+
+::ng-deep .caption {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+::ng-deep .option {
+    margin-top: 10px;
+    display: inline-block;
+    margin-right: 50px;
+}
+
+::ng-deep label {
+    font-weight: bold;
+}
+
+::ng-deep #content {
+    height: 100%;
+    padding: 10px 20px;
+}
+
+::ng-deep #content h2 {
+    font-size: 26px;
+}

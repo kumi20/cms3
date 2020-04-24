@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+    <dx-button
+      type="default"
+      text="Dodaj kontener"
+      [width]="200"
+      (onClick)="popupVisible = true"
+    >
+    </dx-button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <app-menu-page></app-menu-page>
+  </div>
+  <div class="col-md-9">
+    <article *ngFor="let container of containerList">
+      <app-container
+        [idContainer]="container.page_container_id"
+        [nameContainer]="container.page_container_desc"
+      ></app-container>
+      <br>
+    </article>
+  </div>
+</div>
+
+<dx-popup
+  width="100vw"
+  height="50%"
+  [showTitle]="true"
+  title="Nowy kontener"
+  position="bottom"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  (onHiding)="closeModal()"
+  [(visible)]="popupVisible"
+  [animation]="{
+    show: { type: 'slideIn', direction: 'bottom' },
+    hide: { type: 'slideOut', direction: 'bottom' }
+  }"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view
+      #scrollView
+      id="scrollview"
+      scrollByContent="true"
+      scrollByThumb="true"
+      [showScrollbar]="scrollbarMode"
+      bounceEnabled="false"
+      reachBottomText="Updating..."
+    >
+      <form [formGroup]="containerForm">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="pageContainerDesc">Nazwa</label>
+            <dx-text-box
+              [ngClass]="{
+                'in-valid': submitted && formError.pageContainerDesc
+              }"
+              name="pageContainerDesc"
+              id="pageContainerDesc"
+              formControlName="pageContainerDesc"
+            >
+            </dx-text-box>
+            <small
+              class="text-danger"
+              *ngIf="submitted && formError.pageContainerDesc"
+            >
+              <p>{{ formError.pageContainerDesc }}</p>
+            </small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <dx-button
+              icon="fa fa-floppy-o"
+              type="default"
+              text="Zapisz"
+              [width]="200"
+              (onClick)="onSendContainerForm(containerForm)"
+            >
+            </dx-button>
+          </div>
+        </div>
+      </form>
+    </dx-scroll-view>
+  </div>
+</dx-popup>

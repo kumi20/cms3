@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+
+dx-button{
+    margin-bottom: 20px;
+}
+
+.in-valid{
+    border: 1px solid #ff0000!important;
+}
+
+.row{
+    margin-bottom:10px;
+}
+
+.btn-trash{
+    color:red;
+}
+.dx-icon-trash {
+    color: rgb(217, 83, 79)!important;
+}
+
+.my-drop-zone { 
+    border: dotted 3px lightgray; 
+    padding: 15px 15px 15px 15px; 
+    width: 100%;
+    text-align: center;
+}
+
+.dx-icon-edit{
+    color: #111111!important;
+}
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }

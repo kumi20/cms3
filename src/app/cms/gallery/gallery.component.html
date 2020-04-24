@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-lg-12">
+        <dx-button
+            type="default"
+            text="Dodaj nową galerię"
+            [width]="200"
+            [routerLink]="['/content/',{outlets: { 'panel-outlet': ['gallery-add'] } }]"
+            >
+        </dx-button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <dx-data-grid
+            [dataSource]="galleryList"
+            keyExpr="gallery_id"
+            [allowColumnReordering]="false"
+            [allowColumnResizing]="true"
+            [columnAutoWidth]="true"
+            [selectedRowKeys]="[]"
+            (onRowRemoving)="onDeleteGallery($event.key)"
+            (onSelectionChanged)="onSelectionChange($event.selectedRowKeys)"
+            >
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-editing
+                mode="row"
+                [allowUpdating]="false"
+                [allowDeleting]="true"
+                [allowAdding]="false"
+                [useIcons]="true"
+                >
+            </dxo-editing>
+            <dxi-column 
+                dataField="uriImg" 
+                caption="Zdjęcie główne"
+                cellTemplate="galleryPhoto">
+            </dxi-column>  
+            <dxi-column 
+                dataField="gallery_name" 
+                caption="Nazwa">
+            </dxi-column>  
+            <dxi-column 
+                dataField="gallery_desc" 
+                caption="Opis">
+            </dxi-column>   
+            
+            <div *dxTemplate="let data of 'galleryPhoto'">
+                <img [src]="data.value"/>
+              </div>
+        </dx-data-grid>
+    </div>
+</div>

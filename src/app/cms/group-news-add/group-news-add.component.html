@@ -1,0 +1,32 @@
+<form [formGroup]="groupNewsForm">
+    <div class="row">
+        <div class="col-md-12">
+            <label for="newsGroupName">Nazwa grupy</label>
+            <dx-text-box formControlName="newsGroupName" [ngClass]="{'in-valid' : (submitted && formError.newsGroupName)}"></dx-text-box>
+            <small class="text-danger" *ngIf="submitted && formError.newsGroupName">
+                <p>{{ formError.newsGroupName}}</p>
+            </small>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="newsGroupPerpage">Ilość newsów na stronie</label>
+            <dx-number-box formControlName="newsGroupPerpage" [ngClass]="{'in-valid' : (submitted && formError.newsGroupPerpage)}"></dx-number-box>
+            <small class="text-danger" *ngIf="submitted && formError.newsGroupPerpage">
+                <p>{{ formError.newsGroupPerpage}}</p>
+            </small>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dx-button
+                icon="fa fa-floppy-o"
+                type="default"
+                text="Zapisz"
+                [width]="120"
+                (onClick)="onSubmitedForm(groupNewsForm.value)"
+            >
+            </dx-button>
+        </div>
+    </div>
+</form>

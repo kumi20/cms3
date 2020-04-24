@@ -1,0 +1,62 @@
+<form [formGroup]="userForm">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="cformUserName">Imię i nazwisko</label>
+      <dx-text-box
+        formControlName="cformUserName"
+        [ngClass]="{ 'in-valid': submitted && cformUserError.cformUserName }"
+      ></dx-text-box>
+      <small
+        class="text-danger"
+        *ngIf="submitted && cformUserError.cformUserName"
+      >
+        <p>{{ cformUserError.cformUserName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label for="cformUserEmail">Email</label>
+      <dx-text-box
+        formControlName="cformUserEmail"
+        [ngClass]="{ 'in-valid': submitted && cformUserError.cformUserEmail }"
+      ></dx-text-box>
+      <small
+        class="text-danger"
+        *ngIf="submitted && cformUserError.cformUserName"
+      >
+        <p>{{ cformUserError.cformUserName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label for="cformuserTitle">Stanowisko</label>
+      <dx-text-box
+        formControlName="cformuserTitle"
+        [ngClass]="{ 'in-valid': submitted && cformUserError.cformuserTitle }"
+      ></dx-text-box>
+      <small
+        class="text-danger"
+        *ngIf="submitted && cformUserError.cformUserName"
+      >
+        <p>{{ cformUserError.cformUserName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="200"
+        (onClick)="onSubmitedForm(userForm.value)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>

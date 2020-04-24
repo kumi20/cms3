@@ -1,0 +1,57 @@
+<form [formGroup]="nletterForm">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="nletterName">Nazwa</label>
+      <dx-text-box
+        formControlName="nletterName"
+        [ngClass]="{ 'in-valid': submitted && newsError.nletterName }"
+      ></dx-text-box>
+      <small class="text-danger" *ngIf="submitted && newsError.nletterName">
+        <p>{{ newsError.nletterName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label for="nletterData">Data</label>
+      <dx-date-box
+        displayFormat="yyyy-MM-dd"
+        type="date"
+        (onClosed)="onValueChanged()"
+        formControlName="nletterData"
+        [ngClass]="{ 'in-valid': submitted && newsError.nletterData }"
+      ></dx-date-box>
+      <small class="text-danger" *ngIf="submitted && newsError.nletterData">
+        <p>{{ newsError.nletterData }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label for="nletterContent">Treść</label>
+      <editor
+        formControlName="nletterContent"
+        [init]="initTinyMce"
+        [ngClass]="{ 'in-valid': submitted && newsError.nletterContent }"
+      ></editor>
+      <small class="text-danger" *ngIf="submitted && newsError.nletterContent">
+        <p>{{ newsError.nletterContent }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="200"
+        (onClick)="onSubmitedForm(nletterForm.value)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>

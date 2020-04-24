@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+    <dx-button
+      type="default"
+      text="Dodaj nowe menu"
+      [width]="200"
+      [routerLink]="[
+        '/content/',
+        { outlets: { 'panel-outlet': ['menu-add'] } }
+      ]"
+    >
+    </dx-button>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <dx-data-grid
+            #grid
+            [dataSource]="menuList"
+            keyExpr="menu_id"
+            [allowColumnReordering]="false"
+            [allowColumnResizing]="true"
+            [columnAutoWidth]="true"
+            [selectedRowKeys]="[]"
+            (onRowRemoving)="onDeleteMenu($event.key)"
+            (onSelectionChanged)="onSelectionChange($event.selectedRowKeys)"
+            >
+            <dxo-selection mode="single"></dxo-selection>
+
+            <dxo-editing
+                mode="row"
+                [allowUpdating]="false"
+                [allowDeleting]="true"
+                [allowAdding]="false"
+                [useIcons]="true"
+                >
+            </dxo-editing>
+            <dxi-column 
+                dataField="menu_name" 
+                caption="Nazwa">
+            </dxi-column>  
+        </dx-data-grid>
+    </div>
+</div>

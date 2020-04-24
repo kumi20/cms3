@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-lg-12">
+    <dx-button
+      type="default"
+      text="Dodaj nową mapę"
+      [width]="200"
+      [routerLink]="['/content/', { outlets: { 'panel-outlet': ['map-add'] } }]"
+    >
+    </dx-button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <dx-data-grid
+      #grid
+      id="mapList"
+      [dataSource]="mapList"
+      keyExpr="map_id"
+      [allowColumnReordering]="false"
+      [allowColumnResizing]="true"
+      [columnAutoWidth]="true"
+      [selectedRowKeys]="[]"
+      (onRowRemoving)="onDelete($event.key)"
+      (onSelectionChanged)="onSelectionChange($event.selectedRowKeys)"
+    >
+      <dxo-selection mode="single"></dxo-selection>
+
+      <dxo-editing
+        mode="row"
+        [allowUpdating]="false"
+        [allowDeleting]="true"
+        [allowAdding]="false"
+        [useIcons]="true"
+      >
+      </dxo-editing>
+      <dxi-column dataField="map_name" caption="Tytuł"> </dxi-column>
+      <dxi-column dataField="map_content" cellTemplate="cellTemplate">
+        <div *dxTemplate="let cell of 'cellTemplate'">
+          <p [innerHtml]="cell.text"></p>
+        </div>
+      </dxi-column>
+    </dx-data-grid>
+  </div>
+</div>

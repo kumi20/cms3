@@ -1,0 +1,30 @@
+ul{
+    li{
+        a{
+            color: #111111;
+        }
+        a:hover{
+            color:blue;
+        }
+    }
+}
+
+.fa-trash{
+    margin-left:10px;
+    margin-right: 10px;
+}
+
+.fa-caret-right{
+    margin-left:10px;
+    margin-right: 10px;
+}
+
+.hidenMenu{
+    display: none;
+}
+
+.showMenu:hover{
+    .hidenMenu{
+        display: inline-block;
+    }
+}

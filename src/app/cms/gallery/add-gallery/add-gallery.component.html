@@ -1,0 +1,106 @@
+<form [formGroup]="galleryFrom">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="galleryName">Nazwa galerii</label>
+      <dx-text-box
+        id="galleryName"
+        formControlName="galleryName"
+        [ngClass]="{ 'in-valid': submitted && formError.galleryName }"
+      ></dx-text-box>
+      <small class="text-danger" *ngIf="submitted && formError.galleryName">
+        <p>{{ formError.galleryName }}</p>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label for="galleryDesc">Opis galerii</label>
+      <dx-text-box id="galleryDesc" formControlName="galleryDesc"></dx-text-box>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <th>#</th>
+      <th></th>
+      <th>Nazwa</th>
+      <th>Opis</th>
+      <th>Rozmiar</th>
+      <th></th>
+    </thead>
+    <tbody
+      formArrayName="galleryPhoto"
+      *ngFor="
+        let item of galleryFrom.get('galleryPhoto').controls;
+        let i = index
+      "
+    >
+      <tr [formGroupName]="i">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <img
+            src="{{ CmsService.uriGallery }}/{{
+              item.value.gallery_id
+            }}/thumb/{{ item.value.gallery_photo_name }}"
+            alt="{{ item.value.gallery_photo_name }}"
+            class="img-thumbnail"
+            width="200"
+          />
+        </td>
+        <td>{{ item.value.gallery_photo_name }}</td>
+        <td>
+          <dx-text-box formControlName="gallery_photo_desc"></dx-text-box>
+        </td>
+        <td>
+          {{ item.value.gallery_photo_filesize }}
+        </td>
+        <td>
+          <dx-button
+            icon="fa fa-trash btn-trash"
+            type="danger"
+            (onClick)="onDeletePhoto(i)"
+          >
+          </dx-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-md-12">
+      <label
+        class="my-drop-zone little"
+        for="uploader-input2"
+        ng2FileDrop
+        [ngClass]="{ 'another-file-over-class': hasAnotherDropZoneOver }"
+        (fileOver)="fileOverAnother($event)"
+        [uploader]="uploader"
+      >
+        Przeciągnij i upuść plik na to pole<br />
+        lub kliknij w nie, żeby wybrać pliki z dysku
+      </label>
+      <input
+        type="file"
+        ng2FileSelect
+        [uploader]="uploader"
+        id="uploader-input2"
+        style="display:none"
+        multiple
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dx-button
+        icon="fa fa-floppy-o"
+        type="default"
+        text="Zapisz"
+        [width]="120"
+        (onClick)="onSubmitedForm(galleryFrom.value)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</form>

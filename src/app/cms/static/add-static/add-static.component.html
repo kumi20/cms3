@@ -1,0 +1,33 @@
+<form [formGroup]="formStatic">
+    <div class="row">
+        <div class="col-md-12">
+            <label for="staticName">Tytuł</label>
+            <dx-text-box formControlName="staticName" [ngClass]="{'in-valid' : (submitted && formError.staticName)}"></dx-text-box>
+            <small class="text-danger" *ngIf="submitted && formError.staticName">
+                <p>{{ formError.staticName}}</p>
+            </small> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <label for="staticContent">Tytuł</label>
+            <editor formControlName="staticContent" [init]="initTinyMce" [ngClass]="{'in-valid' : (submitted && formError.staticContent)}"></editor>
+            <small class="text-danger" *ngIf="submitted && formError.staticContent">
+                <p>{{ formError.staticContent}}</p>
+            </small> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <dx-button  
+                icon="fa fa-floppy-o"
+                type="default"
+                text="Zapisz"
+                [width]="200"
+                (onClick)="onSubmitedForm(formStatic.value)">
+            </dx-button>
+        </div>
+    </div>
+</form>

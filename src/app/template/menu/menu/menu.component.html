@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor="let i of menu">
+        <a routerLink="/{{i.page_id}}/{{i.menu_node_name_url}}">{{i.menu_node_name}}</a>
+        <app-child-menu [parent]="i.page_id" [level]="1" [idtresci]="idtresci"></app-child-menu>
+    </li>
+</ul>

@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12">
+    <img
+      src="./assets/img/logo.png"
+      alt="Qumi Soft Jakub Kumięga"
+      class="img-fluid"
+      style="display: inline-block;"
+    />
+    <h1 style="display: inline-block; font-style: italic;">CMS System</h1>
+  </div>
+</div>
+
+<br />
+<div class="row">
+  <div class="col-md-12">
+    <h2>
+      {{ dayName }}, {{ dataToday.getDate() }} {{ month }}
+      {{ dataToday.getFullYear() }}
+    </h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Najnowsze newsy</div>
+      <div class="card-body">
+          <ul>
+              <li *ngFor="let news of newsList;">
+                  {{news.news_name}}
+              </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Najpopularniejsze newsy</div>
+      <div class="card-body">
+          <ul>
+              <li *ngFor="let news of topNews;">
+                  {{news.news_name}} - {{news.news_views}} wyświetleń
+              </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>

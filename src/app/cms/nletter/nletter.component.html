@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+    <dx-button
+      type="default"
+      text="Dodaj nowy newsletter"
+      [width]="200"
+      [routerLink]="[
+        '/content/',
+        { outlets: { 'panel-outlet': ['nletter-add'] } }
+      ]"
+    >
+    </dx-button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <dx-data-grid
+      #grid
+      id="nletterList"
+      [dataSource]="nletterList"
+      keyExpr="nletter_id"
+      [allowColumnReordering]="false"
+      [allowColumnResizing]="true"
+      [columnAutoWidth]="true"
+      (onRowRemoving)="onDelete($event.key)"
+      (onSelectionChanged)="onSelectionChange($event.selectedRowKeys)"
+    >
+      <dxo-selection mode="single"></dxo-selection>
+
+      <dxo-editing
+        mode="row"
+        [allowUpdating]="false"
+        [allowDeleting]="true"
+        [allowAdding]="false"
+        [useIcons]="true"
+      >
+      </dxo-editing>
+      <dxi-column dataField="nletter_name" caption="Nazwa"> </dxi-column>
+      <dxi-column dataField="nletter_data" caption="Data"> </dxi-column>
+      <dxi-column
+        caption="Wysłany"
+        dataField="nletter_sent"
+        cellTemplate="send"
+      ></dxi-column>
+
+      <dxi-column cellTemplate="sendbutton" dataField="nletter_id" caption=""></dxi-column>
+
+      <div *dxTemplate="let data of 'send'">
+        <div *ngIf="data.value === '0'; else elseBlock">
+          <i class="fa fa-times" aria-hidden="true" style="color:red"></i>
+        </div>
+        <ng-template #elseBlock
+          ><i class="fa fa-check" aria-hidden="true" style="color:green"></i
+        ></ng-template>
+      </div>
+
+      <div *dxTemplate="let data of 'sendbutton'">
+        <i
+          class="fa fa-share-square-o"
+          aria-hidden="true"
+          title="Wyślij"
+          style="cursor: pointer;"
+          (click)="sendNesletter(data.key, $event)"
+        ></i>
+      </div>
+    </dx-data-grid>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div
+  class="wrapper"
+  [dragula]="'komp'"
+  [dragulaModel]="kontrolkiDoWyswietlenia"
+>
+  <div
+    *ngFor="let komp of kontrolkiDoWyswietlenia; let i = index"
+    draggable="true"
+  >
+    <div class="card" style="cursor: pointer">
+      <div class="card-header">
+        <i
+          class="fa fa-trash-o"
+          aria-hidden="true"
+          style="cursor:pointer; color:red"
+          title="usuń"
+          placement="top"
+          (click)="onDeleteElement(komp.pageElement)"
+        ></i>
+      </div>
+      <div class="card-body">
+        <app-dynamic-component
+          [componentData]="komp"
+          [idTresci]="komp.idTresci"
+          [pageElement]="komp.pageElement"
+          #dynamic
+        ></app-dynamic-component>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-12">
+            <dx-list [items]="newsList" [height]="600" showScrollbar="always"
+            pageLoadMode="scrollBottom"selectionMode="single" 
+            (onSelectionChanged)="listSelectionChanged($event);popupVisible = true;">
+                <div *dxTemplate="let item of 'item'">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <p class="news_data">{{item.news_pub_date}}</p>
+                            <p class="news_title" [innerHTML]="item.news_name"></p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </dx-list>
+    </div>
+</div>
+
+<dx-popup
+    width="100vw"
+    height="90%"
+    [showTitle]="true"
+    [title]="newsContent.news_name"
+    position="bottom"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="true"
+    [(visible)]="popupVisible"
+    [animation]="{ show: { type: 'slideIn', direction: 'bottom' },
+                   hide: { type: 'slideOut', direction: 'bottom' } }">
+
+  <div *dxTemplate="let data of 'content'" >
+    <dx-scroll-view #scrollView
+        id="scrollview"
+        scrollByContent="true"
+        scrollByThumb="true"
+        [showScrollbar]="scrollbarMode"
+        bounceEnabled="false"
+        reachBottomText="Updating..."
+>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
+            <p class="news_data">{{newsContent.news_pub_date}}</p>
+            <p [innerHTML]="newsContent.news_lead | safeHtml"></p>
+            <p [innerHTML]="newsContent.news_content | safeHtml"></p>
+            <p class="text-right">Liczba wyświetleń: {{newsContent.news_views}}</p>
+        </div>
+    </div>
+    </dx-scroll-view>
+        
+  </div>
+</dx-popup>

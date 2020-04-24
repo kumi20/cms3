@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h3>Masz problem lub pytanie? Napisz do nas.</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form [formGroup]="emailForm">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="titleEmail">Tytuł wiadomości</label>
+          <dx-text-box
+            [ngClass]="{ 'in-valid': submitted && formError.titleEmail }"
+            name="titleEmail"
+            mdbActive
+            id="titleEmail"
+            formControlName="titleEmail"
+          >
+          </dx-text-box>
+          <small class="text-danger" *ngIf="submitted && formError.titleEmail">
+            <p>{{ formError.titleEmail }}</p>
+          </small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="userEmail">Adres email do kontaktu</label>
+          <dx-text-box
+            mode="email"
+            [ngClass]="{ 'in-valid': submitted && formError.userEmail }"
+            name="userEmail"
+            id="userEmail"
+            formControlName="userEmail"
+          ></dx-text-box>
+          <small class="text-danger" *ngIf="submitted && formError.userEmail">
+            <p>{{ formError.userEmail }}</p>
+          </small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="messageEmail">Treść wiadomości</label>
+          <editor
+            [init]="initTinyMce"
+            name="messageEmail"
+            [ngClass]="{ 'in-valid': submitted && formError.messageEmail }"
+            formControlName="messageEmail"
+          ></editor>
+          <small
+            class="text-danger"
+            *ngIf="submitted && formError.messageEmail"
+          >
+            <p>{{ formError.messageEmail }}</p>
+          </small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dx-button
+            icon="fa fa-share-square-o"
+            type="default"
+            text="Wyślij"
+            [width]="200"
+            (onClick)="onSendEmail(emailForm)"
+          >
+          </dx-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
