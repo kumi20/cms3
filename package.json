@@ -53,7 +53,7 @@
     "font-awesome": "4.7.x",
     "hammerjs": "2.0.x",
     "jarallax": "^1.10.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mydatepicker": "^2.6.3",
     "ng-fullcalendar": "^1.7.5",
     "ng-html-util": "1.0.x",
