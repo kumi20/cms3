@@ -42,7 +42,7 @@
     "angular2-text-mask": "^9.0.0",
     "angular2-tinymce": "^2.1.2",
     "bootstrap": "^4.4.1",
-    "chart.js": "2.5.x",
+    "chart.js": "2.9.x",
     "classlist.js": "1.1.x",
     "core-js": "^3.4.1",
     "date-fns": "^1.30.1",
