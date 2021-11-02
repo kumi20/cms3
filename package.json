@@ -74,7 +74,7 @@
     "stacktrace-js": "^2.0.0",
     "text-mask-addons": "^3.7.2",
     "timers": "^0.1.1",
-    "tinymce": "^5.2.0",
+    "tinymce": "^5.10.0",
     "web-animations-js": "2.3.x",
     "xslt": "^0.9.1",
     "zone.js": "^0.10.2"
